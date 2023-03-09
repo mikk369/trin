@@ -29,7 +29,47 @@
             </tr>
           </tbody>
         </table>
-        <pagination></pagination>
+      </div>
+      <div class="pagination-wrapper">
+        <button class="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="btn-icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </button>
+        <a href="#" class="page-link page-link--current">1</a>
+        <a href="#" class="page-link">2</a>
+        <a href="#" class="page-link">3</a>
+        <a href="#" class="page-link">4</a>
+        <a href="#" class="page-link">5</a>
+        <a href="#" class="page-link">6</a>
+
+        <button class="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="btn-icon"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </button>
       </div>
     </section>
   </div>
@@ -60,7 +100,7 @@ export default {
       menu.style.display = this.showMenu ? 'block' : 'none';
     },
   },
-  async created() {
+  async mounted() {
     try {
       const response = await axios.get(
         'https://midaiganes.irw.ee/api/list?limit=500'
@@ -80,17 +120,14 @@ export default {
   font-family: booster;
   font-size: 2rem;
   padding: 5rem 2.5rem;
-  line-height: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  line-height: 1;
 }
 h1 {
   text-transform: uppercase;
   margin-bottom: 30px;
-}
-.main-contnent {
-  display: flex;
 }
 
 /* SECTION STYLES */
@@ -99,6 +136,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: #3a3d57;
   background-image: url('/bg-deco-right.svg'), url('/bg-deco-left.svg');
   background-repeat: no-repeat;
@@ -130,5 +168,56 @@ thead th {
 }
 .even {
   background-color: #494d6e;
+}
+/* PAGINATION STYLES  */
+
+.pagination-wrapper {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-link {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 200px;
+}
+.page-link:hover,
+.page-link:active,
+.page-link--current {
+  background-color: #fff;
+  color: #3a3d57;
+}
+.span-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.btn-icon {
+  height: 20px;
+  width: 20px;
+  stroke: #fff;
+}
+.button:hover .btn-icon {
+  stroke: #fff;
+}
+.button {
+  width: 35px;
+  height: 35px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover {
+  border: #fff;
+  border: solid 1px #fff;
+  border-radius: 100px;
 }
 </style>
