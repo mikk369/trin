@@ -45,7 +45,7 @@ export default {
       menu.style.display = this.showMenu ? 'block' : 'none';
     },
   },
-  async created() {
+  async mounted() {
     try {
       const response = await axios.get(
         'https://midaiganes.irw.ee/api/list/972d2b8a'
