@@ -44,16 +44,21 @@ menu {
 }
 
 .menu-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 210px;
+  background-color: white;
+  z-index: 99;
   padding: 25px;
-  min-width: 170px;
   font-family: booster;
+  transition: 0.2s ease-out;
 }
 @media (max-width: 960px) {
   .menu-container {
     display: none;
+    margin-top: 40px;
   }
   .logo {
     display: none;
