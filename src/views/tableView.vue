@@ -1,7 +1,7 @@
 <template>
   <div class="main-contnent">
-    <navView></navView>
-    <menuView></menuView>
+    <navView @toggleMenu="toggleMenu"></navView>
+    <menuView ref="changeMenu"></menuView>
     <section>
       <body>
         <h1>Nimekiri</h1>
@@ -45,11 +45,20 @@ export default {
     menuView,
     navView,
     pagination,
+    showMenu: false,
   },
   data() {
     return {
       list: [],
     };
+  },
+  methods: {
+    toggleMenu() {
+      // Change display style of component
+      this.showMenu = !this.showMenu;
+      const menu = this.$refs.changeMenu.$el;
+      menu.style.display = this.showMenu ? 'block' : 'none';
+    },
   },
   async created() {
     try {
@@ -100,7 +109,6 @@ section {
 
 body {
   display: flex;
-
   line-height: 1;
   justify-content: center;
 }
