@@ -3,7 +3,7 @@
     <navView @toggleMenu="toggleMenu"></navView>
     <menuView ref="changeMenu"></menuView>
     <section>
-      <body>
+      <div class="table-wrapper">
         <h1>Nimekiri</h1>
         <table>
           <thead>
@@ -30,7 +30,7 @@
           </tbody>
         </table>
         <pagination></pagination>
-      </body>
+      </div>
     </section>
   </div>
 </template>
@@ -74,13 +74,13 @@ export default {
 </script>
 <style scoped>
 /* main content styles desktop */
-body {
+.table-wrapper {
   display: flex;
   color: #fff;
   font-family: booster;
   font-size: 2rem;
   padding: 5rem 2.5rem;
-
+  line-height: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -107,11 +107,6 @@ section {
   flex-grow: 1;
 }
 
-body {
-  display: flex;
-  line-height: 1;
-  justify-content: center;
-}
 table {
   border-collapse: collapse;
   border-collapse: collapse;
