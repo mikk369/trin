@@ -1,23 +1,23 @@
 <template>
-  <div class="main-container">
-    <div class="main-contnent">
-      <navView></navView>
-      <menuView></menuView>
-      <section>
-        <div class="article-container">
-          <h1 class="title">{{ title }}</h1>
-          <p class="intro"></p>
-          <div class="img-par-wrapper">
+  <div class="main-contnent">
+    <navView @toggleMenu="toggleMenu"></navView>
+    <menuView ref="changeMenu"></menuView>
+    <section>
+      <div class="article-container">
+        <h1 class="title">{{ title }}</h1>
+        <p class="intro"></p>
+        <div class="img-par-wrapper">
+          <div class="img-wrapper">
             <div class="img-container">
               <img :src="`${image}`" alt="dog picture" />
             </div>
-
-            <div class="par-container"></div>
-            <button class="btn">amet</button>
+            <div class="image-title">{{ imageTitle }}</div>
           </div>
+          <div class="par-container"></div>
+          <button class="btn">amet</button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 </template>
 <script>
@@ -36,6 +36,14 @@ export default {
       image: '',
       imageTitle: '',
     };
+  },
+  methods: {
+    toggleMenu() {
+      // Change display style of component
+      this.showMenu = !this.showMenu;
+      const menu = this.$refs.changeMenu.$el;
+      menu.style.display = this.showMenu ? 'block' : 'none';
+    },
   },
   async created() {
     try {
@@ -76,9 +84,6 @@ export default {
   font-size: 1.1875rem;
   font-weight: lighter;
   color: #fff;
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  grid-template-rows: 1fr;
   height: 100vh;
 }
 /* main content at width 960 row height */
@@ -122,17 +127,28 @@ h1 {
 p {
   padding: 40px 0 40px 0;
 }
-.img-container {
+.img-wrapper {
   background-image: url('https://midaiganes.irw.ee/api/imgs/large/a3dac073.jpg');
   display: flex;
   justify-content: center;
-  text-align: center;
   background-size: cover;
-  filter: blur();
+  position: relative;
+}
+
+.image-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.6);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 24px 10px 24px;
 }
 img {
-  width: 800px;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0 100px 0 100px;
   transition: transform ease-in-out 0.2s;
 }
 
