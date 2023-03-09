@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody
-            v-for="(list, i) in list"
+            v-for="(list, i) in paginatedList"
             :key="list.id"
             :class="{ odd: i % 2 === 0, even: i % 2 === 1 }"
           >
@@ -31,7 +31,7 @@
         </table>
       </div>
       <div class="pagination-wrapper">
-        <button class="button">
+        <button class="button" @click="previousPage">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -47,14 +47,20 @@
             />
           </svg>
         </button>
-        <a href="#" class="page-link page-link--current">1</a>
-        <a href="#" class="page-link">2</a>
-        <a href="#" class="page-link">3</a>
-        <a href="#" class="page-link">4</a>
-        <a href="#" class="page-link">5</a>
-        <a href="#" class="page-link">6</a>
+        <a
+          v-for="page in totalPages"
+          :key="page"
+          :href="`#${page}`"
+          :class="{
+            'page-link': true,
+            'page-link--current': page === currentPage,
+          }"
+          @click.prevent="setCurrentPage(page)"
+        >
+          {{ page }}
+        </a>
 
-        <button class="button">
+        <button class="button" @click="nextPage">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -76,7 +82,6 @@
 </template>
 <script>
 import axios from 'axios';
-import pagination from '../components/paginationView.vue';
 import menuView from './../components/menuItem.vue';
 import navView from '../components/navView.vue';
 export default {
@@ -84,13 +89,26 @@ export default {
   components: {
     menuView,
     navView,
-    pagination,
     showMenu: false,
   },
   data() {
     return {
       list: [],
+      currentPage: 1,
+      itemsPerPage: 10,
     };
+  },
+  computed: {
+    // to determine which rows of data should be displayed on the current page.
+    paginatedList() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.list.slice(startIndex, endIndex);
+    },
+    // Calculates the total number of pages needed to display all the data, based on the length of the list array
+    totalPages() {
+      return Math.ceil(this.list.length / this.itemsPerPage);
+    },
   },
   methods: {
     toggleMenu() {
@@ -98,6 +116,22 @@ export default {
       this.showMenu = !this.showMenu;
       const menu = this.$refs.changeMenu.$el;
       menu.style.display = this.showMenu ? 'block' : 'none';
+    },
+    // This method sets the currentPage property to the specified page number.
+    setCurrentPage(pageNumber) {
+      this.currentPage = pageNumber;
+    },
+    // This method increments currentPage
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    // This method decrements currentPage
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
     },
   },
   async mounted() {
@@ -143,6 +177,7 @@ section {
   background-position: top right, bottom left;
   background-size: 200px;
   flex-grow: 1;
+  height: 100vh;
 }
 
 table {
@@ -169,8 +204,8 @@ thead th {
 .even {
   background-color: #494d6e;
 }
-/* PAGINATION STYLES  */
 
+/* PAGINATION STYLES  */
 .pagination-wrapper {
   display: flex;
   width: 400px;
