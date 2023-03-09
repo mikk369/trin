@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="nav-wrapper">
-      <div class="navbar-toggle" id="mobile-menu">
+      <div class="navbar-toggle" @click="$emit('toggleMenu')">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -24,7 +24,12 @@ nav {
   padding: 10px 20px 10px 20px;
   background-color: #ffffff;
   z-index: 999;
-  /* display: none; */
+  display: none;
+}
+@media (max-width: 960px) {
+  nav {
+    display: block;
+  }
 }
 .nav-wrapper {
   display: flex;
