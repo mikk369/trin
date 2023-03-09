@@ -1,8 +1,8 @@
 <template>
   <div class="main-content">
-    <navView></navView>
+    <navView @toggleMenu="toggleMenu"></navView>
     <div class="container">
-      <menuView></menuView>
+      <menuView ref="changeMenu"></menuView>
       <section>
         <div class="text-wrapper">
           <h1>TRINIDAD WISEMAN</h1>
@@ -22,6 +22,20 @@ export default {
   components: {
     menuView,
     navView,
+  },
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      // Change display style of component
+      console.log('button clicked');
+      this.showMenu = !this.showMenu;
+      const menu = this.$refs.changeMenu.$el;
+      menu.style.display = this.showMenu ? 'block' : '';
+    },
   },
 };
 </script>
