@@ -6,13 +6,81 @@
       <div class="table-wrapper">
         <h1>Nimekiri</h1>
         <table>
+          <div v-if="Loading" class="loading-screen">
+            <div class="loading-circle"></div>
+          </div>
           <thead>
             <tr>
-              <th>Eestnimi</th>
-              <th>Perekonnanimi</th>
-              <th>Sugu</th>
-              <th>Sünnikuupäev</th>
-              <th>telefon</th>
+              <th>
+                <div class="th-wrapper">
+                  Eesnimi
+                  <div class="arrows-container">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up arrows"
+                      class="icon"
+                    /><font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      class="icon"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="th-wrapper">
+                  Perekonnanimi
+                  <div class="arrows-container">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up arrows"
+                      class="icon"
+                    /><font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      class="icon"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="th-wrapper">
+                  Sugu
+                  <div class="arrows-container">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up arrows"
+                      class="icon"
+                    /><font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      class="icon"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="th-wrapper">
+                  Sünnikuupäev
+                  <div class="arrows-container">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up "
+                      class="icon"
+                    /><font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      class="icon"
+                    />
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="th-wrapper">
+                  telefon
+                  <div class="arrows-container">
+                    <font-awesome-icon
+                      icon="fa-solid fa-angle-up"
+                      class="icon"
+                    /><font-awesome-icon
+                      icon="fa-solid fa-angle-down"
+                      class="icon"
+                    />
+                  </div>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody
@@ -96,6 +164,7 @@ export default {
       list: [],
       currentPage: 1,
       itemsPerPage: 10,
+      Loading: false,
     };
   },
   computed: {
@@ -135,6 +204,7 @@ export default {
     },
   },
   async mounted() {
+    this.Loading = true; // show the loading screen
     try {
       const response = await axios.get(
         'https://midaiganes.irw.ee/api/list?limit=500'
@@ -143,28 +213,16 @@ export default {
     } catch (err) {
       console.log(err);
     }
+    this.Loading = false; // show the loading screen
   },
 };
 </script>
 <style scoped>
-/* main content styles desktop */
-.table-wrapper {
-  display: flex;
-  color: #fff;
-  font-family: booster;
-  font-size: 2rem;
-  padding: 5rem 2.5rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  line-height: 1;
-}
 h1 {
   text-transform: uppercase;
   margin-bottom: 30px;
 }
 
-/* SECTION STYLES */
 section {
   padding: 80px 40px 80px 40px;
   display: flex;
@@ -178,26 +236,51 @@ section {
   background-size: 200px;
   flex-grow: 1;
   height: 100vh;
+  overflow-x: auto;
 }
-
+.table-wrapper {
+  display: flex;
+  color: #fff;
+  font-family: booster;
+  font-size: 2rem;
+  padding: 5rem 2.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 table {
   border-collapse: collapse;
-  border-collapse: collapse;
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
+
 th,
 td {
   padding: 10px 16px;
-  text-align: left;
+  /* text-align: left; */
   white-space: nowrap;
 }
-tr {
+
+th tr {
   border-bottom: 1px solid #a4a5a7;
+}
+.th-wrapper {
+  display: flex;
+  align-items: center;
 }
 thead th {
   background-color: #333;
   color: #fff;
   width: 25%;
+}
+.arrows-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 9px;
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 .odd {
   background-color: #3a3d57;
@@ -255,5 +338,23 @@ thead th {
   border: #fff;
   border: solid 1px #fff;
   border-radius: 100px;
+}
+.loading-circle {
+  z-index: 99;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border: 6px solid #14cc76;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

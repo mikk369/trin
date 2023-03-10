@@ -6,6 +6,9 @@
       <div class="article-container">
         <h1 class="title">{{ title }}</h1>
         <p class="intro"></p>
+        <div v-if="Loading" class="loading-screen">
+          <div class="loading-circle"></div>
+        </div>
         <div class="img-par-wrapper">
           <div class="img-wrapper">
             <div class="img-container">
@@ -35,6 +38,7 @@ export default {
       title: '',
       image: '',
       imageTitle: '',
+      Loading: false,
     };
   },
   methods: {
@@ -46,6 +50,7 @@ export default {
     },
   },
   async mounted() {
+    this.Loading = true; // show the loading screen
     try {
       const response = await axios.get(
         'https://midaiganes.irw.ee/api/list/972d2b8a'
@@ -60,7 +65,7 @@ export default {
       intro.innerHTML = response.data.intro;
       // image
       this.image = response.data.image.small;
-      // body
+      // paragraphs
       const textApi = response.data.body;
       const containerEl = document.querySelector('.par-container');
       containerEl.innerHTML = textApi;
@@ -72,6 +77,7 @@ export default {
     } catch (err) {
       console.log(err);
     }
+    this.Loading = false; // hide the loading screen
   },
 };
 </script>
@@ -167,5 +173,23 @@ img:hover {
 }
 .par-container p {
   padding: 40px 0 40px 0;
+}
+.loading-circle {
+  position: absolute;
+  z-index: 99;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border: 6px solid #14cc76;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
