@@ -183,12 +183,13 @@ section {
 table {
   border-collapse: collapse;
   border-collapse: collapse;
-  font-size: 18px;
+  font-size: 1rem;
 }
 th,
 td {
-  padding: 16px 24px;
+  padding: 10px 16px;
   text-align: left;
+  white-space: nowrap;
 }
 tr {
   border-bottom: 1px solid #a4a5a7;
