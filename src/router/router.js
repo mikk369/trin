@@ -17,9 +17,9 @@ const routes = [
     component: () => import('./../views/tableView.vue'),
   },
   {
-    path: '/game',
-    name: 'game',
-    component: () => import('./../views/gameView.vue'),
+    path: '/listview/:id',
+    name: 'listview',
+    component: () => import('./../views/listView.vue'),
   },
 ];
 
