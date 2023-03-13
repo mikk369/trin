@@ -20,13 +20,6 @@
             <font-awesome-icon icon="fa-solid fa-table" /></div
         ></a>
       </li>
-      <li>
-        <a href="/game"
-          >game of life
-          <div class="icon-wrapper">
-            <font-awesome-icon icon="fa-solid fa-image" /></div
-        ></a>
-      </li>
     </ul>
   </menu>
 </template>
