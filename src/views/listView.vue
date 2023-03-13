@@ -91,7 +91,6 @@ export default {
 };
 </script>
 <style scoped>
-
 /* main content styles desktop */
 .main-contnent {
   font-family: booster;
@@ -131,6 +130,11 @@ section {
   align-items: center;
   width: 1000px;
   padding: 80px 40px 80px 40px;
+}
+@media only screen and (max-width: 425px) {
+  .img-container img {
+    padding: 30px 0 30px 0;
+  }
 }
 h1 {
   text-transform: uppercase;
