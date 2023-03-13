@@ -48,7 +48,7 @@ menu {
   font-family: booster;
   transition: 0.2s ease-out;
 }
-@media (max-width: 960px) {
+@media (max-width: 1440px) {
   .menu-container {
     display: none;
     margin-top: 40px;
