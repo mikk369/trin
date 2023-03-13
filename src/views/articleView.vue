@@ -42,6 +42,7 @@ export default {
     };
   },
   methods: {
+    // The toggleMenu method is called when the @toggleMenu event is emitted by the navView component.
     toggleMenu() {
       // Change display style of component
       this.showMenu = !this.showMenu;
@@ -49,6 +50,7 @@ export default {
       menu.style.display = this.showMenu ? 'block' : 'none';
     },
   },
+  // The mounted method is a lifecycle hook that is called after the component has been mounted to the DOM
   async mounted() {
     this.Loading = true; // show the loading screen
     try {
@@ -67,9 +69,13 @@ export default {
       this.image = response.data.image.small;
       // paragraphs
       const textApi = response.data.body;
+      // select .par-container element
       const containerEl = document.querySelector('.par-container');
+      // set containerEl innetHTML to textAPI
       containerEl.innerHTML = textApi;
+      // select all p elements
       const paragraphs = containerEl.querySelectorAll('p');
+      // set margins for p elements
       paragraphs.forEach((p) => {
         p.style.marginTop = '40px';
         p.style.marginBottom = '40px';
@@ -82,8 +88,6 @@ export default {
 };
 </script>
 <style scoped>
-@import url('./../style.css');
-
 /* main content styles desktop */
 .main-contnent {
   font-family: booster;
@@ -91,12 +95,6 @@ export default {
   font-weight: lighter;
   color: #fff;
   height: 100vh;
-}
-/* main content at width 960 row height */
-@media (max-width: 960px) {
-  .main-contnent {
-    grid-template-rows: 50px;
-  }
 }
 
 /* SECTION STYLES */
@@ -109,12 +107,6 @@ section {
   background-repeat: no-repeat;
   background-position: top right, bottom left;
   background-size: 200px;
-}
-@media (max-width: 960px) {
-  section {
-    grid-row: 2 / 3;
-    grid-column: 1 / 3;
-  }
 }
 .article-container {
   display: flex;
@@ -140,7 +132,11 @@ p {
   background-size: cover;
   position: relative;
 }
-
+@media only screen and (max-width: 425px) {
+  .img-container img {
+    padding: 30px 0 30px 0;
+  }
+}
 .image-title {
   position: absolute;
   bottom: 0;
@@ -157,11 +153,9 @@ img {
   padding: 0 100px 0 100px;
   transition: transform ease-in-out 0.2s;
 }
-
 img:hover {
   transform: scale(1.1);
 }
-
 .btn {
   background-color: #ff57a2;
   border: none;
@@ -170,9 +164,6 @@ img:hover {
   border-radius: 100px;
   font-weight: bold;
   font-size: 14px;
-}
-.par-container p {
-  padding: 40px 0 40px 0;
 }
 .loading-circle {
   position: absolute;
