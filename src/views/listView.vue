@@ -10,9 +10,12 @@
           <div class="loading-circle"></div>
         </div>
         <div class="img-par-wrapper">
-          <div class="img-wrapper">
+          <div
+            class="img-wrapper"
+            :style="{ 'background-image': `url(${backgroundImageUrl})` }"
+          >
             <div class="img-container">
-              <img :src="`${image}`" alt="dog picture" />
+              <img :src="`${image}`" :alt="`${alt}`" />
             </div>
             <div class="image-title">{{ imageTitle }}</div>
           </div>
@@ -35,10 +38,12 @@ export default {
   },
   data() {
     return {
+      alt: '',
       title: '',
       image: '',
       imageTitle: '',
       Loading: false,
+      backgroundImageUrl: '',
     };
   },
   methods: {
@@ -55,6 +60,8 @@ export default {
       const response = await axios.get(
         'https://midaiganes.irw.ee/api/list/' + this.$route.params.id
       );
+      // image alt
+      this.alt = response.data.image.alt;
       // image title
       this.imageTitle = response.data.image.title;
       // title
@@ -65,6 +72,8 @@ export default {
       intro.innerHTML = response.data.intro;
       // image
       this.image = response.data.image.small;
+      // background image
+      this.backgroundImageUrl = response.data.image.large;
       // paragraphs
       const textApi = response.data.body;
       const containerEl = document.querySelector('.par-container');
@@ -82,7 +91,6 @@ export default {
 };
 </script>
 <style scoped>
-@import url('./../style.css');
 
 /* main content styles desktop */
 .main-contnent {
@@ -134,7 +142,6 @@ p {
   padding: 40px 0 40px 0;
 }
 .img-wrapper {
-  background-image: url('https://midaiganes.irw.ee/api/imgs/large/a3dac073.jpg');
   display: flex;
   justify-content: center;
   background-size: cover;
