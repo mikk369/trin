@@ -1,7 +1,11 @@
 <template>
   <nav class="navbar">
     <div class="nav-wrapper">
-      <div class="navbar-toggle" @click="$emit('toggleMenu')">
+      <div
+        class="navbar-toggle"
+        @click="toggleMenu"
+        :class="{ 'is-active': showX }"
+      >
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -13,7 +17,21 @@
     </div>
   </nav>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      showX: false,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.$emit('toggleMenu');
+      this.showX = !this.showX;
+    },
+  },
+};
+</script>
 <style scoped>
 /*  NAV STYLES */
 nav {
@@ -26,7 +44,7 @@ nav {
   z-index: 999;
   display: none;
 }
-@media (max-width: 960px) {
+@media (max-width: 1440px) {
   nav {
     display: block;
   }
@@ -53,5 +71,14 @@ nav {
   background-color: #3a3d57;
   display: block;
   cursor: pointer;
+}
+.navbar-toggle.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+.navbar-toggle.is-active .bar:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.navbar-toggle.is-active .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 </style>
